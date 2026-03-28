@@ -109,11 +109,20 @@ tailwind.config = {
     bottom: 0; left: 0;
     width: 0%;
     height: 2px;
-    background: #000;
+    background: currentColor;
     transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .nav-link.active::after { width: 100%; }
-  .nav-link.active { color: #000 !important; }
+  .nav-link.active { opacity: 1 !important; }
+
+  /* Nav scrolled state */
+  .nav-scrolled { background: rgba(255,255,255,0.92) !important; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+  .nav-scrolled .nav-text { color: #71717a !important; }
+  .nav-scrolled .nav-text:hover { color: #000 !important; }
+  .nav-scrolled .nav-text.active { color: #000 !important; }
+  .nav-scrolled #nav-logo { filter: invert(0) !important; }
+  .nav-scrolled #nav-shop-btn { border-color: #000 !important; color: #000 !important; }
+  .nav-scrolled #nav-shop-btn:hover { background: #000 !important; color: #fff !important; }
 
   /* Gold glow card */
   .gold-glow-card { position: relative; }
@@ -204,17 +213,17 @@ tailwind.config = {
 <body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
 
 <!-- Nav -->
-<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl no-line-rule">
+<nav id="main-nav" class="fixed top-0 w-full z-50 no-line-rule transition-all duration-500" style="background: transparent;">
   <div class="flex justify-between items-center px-8 py-6 max-w-full mx-auto">
-    <a href="#hero" class="block"><img src="logo.svg" alt="3:59 Project" class="h-10 w-auto" /></a>
+    <a href="#hero" class="block"><img id="nav-logo" src="logo.svg" alt="3:59 Project" class="h-10 w-auto transition-all duration-500" style="filter: invert(1);" /></a>
     <div class="hidden md:flex gap-12 items-center">
-      <a class="nav-link text-zinc-500 hover:text-black transition-colors font-headline uppercase tracking-tighter font-bold" href="#posing" data-section="posing">Posing</a>
-      <a class="nav-link text-zinc-500 hover:text-black transition-colors font-headline uppercase tracking-tighter font-bold" href="#prep" data-section="prep">Prep</a>
-      <a class="nav-link text-zinc-500 hover:text-black transition-colors font-headline uppercase tracking-tighter font-bold" href="#build" data-section="build">Build</a>
-      <a class="nav-link text-zinc-500 hover:text-black transition-colors font-headline uppercase tracking-tighter font-bold" href="#merch" data-section="merch">Merch</a>
-      <a class="nav-link text-zinc-500 hover:text-black transition-colors font-headline uppercase tracking-tighter font-bold" href="#about" data-section="about">About</a>
+      <a class="nav-link nav-text text-white/70 hover:text-white transition-all duration-500 font-headline uppercase tracking-tighter font-bold" href="#posing" data-section="posing">Posing</a>
+      <a class="nav-link nav-text text-white/70 hover:text-white transition-all duration-500 font-headline uppercase tracking-tighter font-bold" href="#prep" data-section="prep">Prep</a>
+      <a class="nav-link nav-text text-white/70 hover:text-white transition-all duration-500 font-headline uppercase tracking-tighter font-bold" href="#build" data-section="build">Build</a>
+      <a class="nav-link nav-text text-white/70 hover:text-white transition-all duration-500 font-headline uppercase tracking-tighter font-bold" href="#merch" data-section="merch">Merch</a>
+      <a class="nav-link nav-text text-white/70 hover:text-white transition-all duration-500 font-headline uppercase tracking-tighter font-bold" href="#about" data-section="about">About</a>
     </div>
-    <button onclick="document.getElementById('merch').scrollIntoView({behavior:'smooth'})" class="bg-primary text-on-primary px-8 py-2 font-headline font-bold uppercase tracking-widest text-sm hover:opacity-80 transition-opacity duration-300 active:scale-90 transition-transform">Shop</button>
+    <button id="nav-shop-btn" onclick="document.getElementById('merch').scrollIntoView({behavior:'smooth'})" class="border border-white text-white px-8 py-2 font-headline font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-black transition-all duration-500 active:scale-90">Shop</button>
   </div>
 </nav>
 
@@ -242,9 +251,8 @@ tailwind.config = {
 <!-- 01 Posing -->
 <section class="py-32 px-8 bg-surface" id="posing">
   <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-20">
-    <div class="chrono-marker text-[12rem] absolute left-0 -translate-x-1/2 select-none pointer-events-none font-digital">01</div>
     <div class="gsap-reveal-left w-full md:w-1/2 relative">
-      <div class="aspect-[4/5] bg-surface-container-highest overflow-hidden">
+      <div class="aspect-[4/5] bg-transparent overflow-hidden">
         <img class="w-full h-full object-cover grayscale brightness-75" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClnfk5mv297dV-kFDTnh_bwxPbAA4woji1WukZDxPCrZ8xo6sHXxPYP83KYCDn4LudFmske4aIL0aovQxjvpph1jgXjuMzNRamcUvMrCTDfA1c7BfdYLAvAd0g7jQlEgkkRcSFLEKOMLv40eA8r-R982ppKucyWjVXXIYK9ixgVB3J7jbkUqtMNgtgBM4riBrkBpfofgKLsd2gelyDqkDQ7qky2zNKEtQ5aLjszl4RIk0DphGFM87LKVFbnQ1104FTGklUVg84eBE" alt="Posing session"/>
       </div>
       <div class="absolute bottom-0 w-full bg-inverse-surface text-on-tertiary p-6 translate-y-1/2 md:translate-x-12 max-w-sm">
@@ -272,7 +280,7 @@ tailwind.config = {
 <section class="py-32 px-8 bg-surface-container-low" id="prep">
   <div class="max-w-7xl mx-auto flex flex-col md:flex-row-reverse items-center gap-20">
     <div class="gsap-reveal-right w-full md:w-1/2 relative">
-      <div class="aspect-[4/5] bg-surface-container-highest overflow-hidden">
+      <div class="aspect-[4/5] bg-transparent overflow-hidden">
         <img class="w-full h-full object-cover grayscale contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxTWoAwHk6egRc3mz1Fe93_9Dx6qlBPL9pgzjoUNjHydL3GJWUR2ozuUj0pYcaEwM3eqiSqCt9IOJgnJOXrHBVMNH72WPX0OfiZ0IubXD1W2EzH4V20QmvDcC3ptkrKjl7Weh5NNgEUNa2cviHItMVFo_A7NlllHyRVEDuNIf8fL79C4F9CEcXAuqypnw-ZZwfOx2pCDsFZl-IA9Bio6W0BPUmhMSVdQ3QuUqjK7zAApyU4AZAVnf5NXhvLPQzr7G33OkvhIS9_zU" alt="Contest prep"/>
       </div>
       <div class="absolute bottom-0 right-0 w-full bg-inverse-surface text-on-tertiary p-6 translate-y-1/2 md:-translate-x-12 max-w-sm">
@@ -293,7 +301,7 @@ tailwind.config = {
 <section class="py-32 px-8 bg-surface" id="build">
   <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-20">
     <div class="gsap-reveal-left w-full md:w-1/2 relative">
-      <div class="aspect-[4/5] bg-surface-container-highest overflow-hidden">
+      <div class="aspect-[4/5] bg-transparent overflow-hidden">
         <img class="w-full h-full object-cover grayscale brightness-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiK8P2VEy5F4pccj9auTPhnlTtIkKC-GJoFRyl8ooPGtIIH5EqiYb7ThwWKoCI4RPLVmVxxmeY3C_2RGJTI9B8cZBJAxTik7WSMciXnSig6Z6aZnFTWqwDLsbNMubMonQXWWXWCYBoPMhebb_jF3FqfF2KuxX3av-YTBIur8gaOxblnO59aGpJuUZrpCFNZbN4XG1b1M4MbupqbATtJ-C1clFQObUecSl6xTnbY3Y9canW51dDMYwA1mc6i6lkV3wvLcRW027jN4s" alt="Build season"/>
       </div>
       <div class="absolute bottom-0 w-full bg-inverse-surface text-on-tertiary p-6 translate-y-1/2 md:translate-x-12 max-w-sm">
@@ -703,6 +711,14 @@ ScrollTrigger.create({
       gsap.to("#scroll-indicator", { opacity: 0, y: 20, duration: 0.4, ease: "power2.in" });
     }
   }
+});
+
+// Nav: transparent over hero, solid white after
+ScrollTrigger.create({
+  trigger: "#hero",
+  start: "bottom 80px",
+  onEnter: () => document.getElementById('main-nav').classList.add('nav-scrolled'),
+  onLeaveBack: () => document.getElementById('main-nav').classList.remove('nav-scrolled'),
 });
 
 // FitText: dynamically size hero title to fill its container width
